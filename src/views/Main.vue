@@ -3,7 +3,10 @@
     <!-- 头部 -->
 		<header class="header">
 			<el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
-				{{collapsed?shortName:brandName}}
+			<span v-if="collapsed">{{shortName}}</span>
+			<transition name="title" mode="out-in">
+				<span v-if="!collapsed">{{brandName}}</span>
+			</transition>
 			</el-col>
 			<el-col :span="10">
 				<div class="tools" @click.prevent="collapse">
@@ -29,7 +32,11 @@
            background-color="#304156" text-color="#fff" active-text-color="#409EFF">
 					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
 						<el-submenu :index="index+''" v-if="!item.unique">
-							<template slot="title"><i :class="item.icon"class="menu-icon"></i><span v-if="!collapsed">{{item.name}}</span></template>
+							<template slot="title"><i :class="item.icon"class="menu-icon"></i>
+								<transition name="title" mode="out-in">
+									<span v-if="!collapsed">{{item.name}}</span>
+								</transition>
+							</template>
 							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
 						</el-submenu>
 						<el-menu-item v-if="item.unique&&item.children.length>0" :index="item.children[0].path"><i :class="item.icon"></i>{{item.children[0].name}}</el-menu-item>
@@ -42,9 +49,11 @@
 					<el-col :span="24" class="breadcrumb-container">
 						<strong class="title">{{$route.name}}</strong>
 						<el-breadcrumb separator="/" class="breadcrumb-inner">
-							<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
-								{{ item.name }}
-							</el-breadcrumb-item>
+							<transition-group name="breadcrumb">
+								<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+									{{ item.name }}
+								</el-breadcrumb-item>
+							</transition-group>
 						</el-breadcrumb>
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
@@ -110,15 +119,13 @@
 			height: 60px;
 			line-height: 60px;
 			background: #fff;
-			color:#20a0ff;
-      box-shadow: 0 1px 2px #999;
+			box-shadow: 0 1px 2px #999;
 			.userinfo {
 				text-align: right;
 				padding-right: 35px;
 				float: right;
 				.userinfo-inner {
 					cursor: pointer;
-					color:#fff;
 					img {
 						width: 40px;
 						height: 40px;
@@ -130,9 +137,10 @@
 			}
 			.logo {
 				height:64px;
-        text-align: center;
+        		text-align: center;
 				font-size: 22px;
-        background-color: #304156;
+				color:#20a0ff;
+        		background-color: #304156;
 				border-right: 1px solid rgba(238,241,146,0.3);
 				img {
 					width: 40px;
@@ -145,7 +153,7 @@
 			}
 			.logo-width{
 				width: 200px;
-        transition: width 0.28s ease-in-out;
+        		transition: width 0.3s ease-in-out;
 			}
 			.logo-collapse-width{
 				width: 64px
@@ -165,13 +173,14 @@
 			aside {
 				flex:0 200px;
 				width: 200px;
+				transition: width 0.3s;
 				.el-menu{
 					height: 100%;
-          text-indent: 10px;
-          .menu-icon{
-            color: #fff;
-            padding-right: 15px;
-          }
+					border: none;
+					.menu-icon{
+						color: #fff;
+						padding-right: 15px;
+					}
 				}
 				.collapsed{
 					width:60px;
@@ -180,18 +189,33 @@
 			.menu-collapsed{
 				flex:0 64px;
 				width: 64px;
+				transition: width 0.3s;
+				text-align: center;
+				span {
+					height: 0;
+					width: 0;
+					overflow: hidden;
+					visibility: hidden;
+					transition: opacity .3s cubic-bezier(.55, 0, .1, 1);
+					opacity: 0;
+					display: inline-block;
+				}
 			}
 			.menu-expanded{
 				flex:0 200px;
 				width: 200px;
+				transition: width 0.3s;
 			}
 			.content-container {
-				background: #f1f2f7;
 				flex:1;
 				overflow-y: scroll;
 				padding: 20px;
+				-webkit-transition: 1s all;
+				 -moz-transition: 1s all; 
+				 -ms-transition: 1s all;
+				  -o-transition: 1s all;
+				 transition: 1s all;
 				.breadcrumb-container {
-					//margin-bottom: 15px;
 					.title {
 						width: 200px;
 						float: left;

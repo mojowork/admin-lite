@@ -1,0 +1,54 @@
+/*globl transition css*/
+
+// fade
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 3s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+// breadcrumb fade
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all .5s;
+}
+
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-move {
+  transition: all .5s;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
+}
+
+// title fade
+.title-enter-active {
+  transition: all .8s ease-in-out;
+}
+.title-leave-active{
+    transition: all 0 ease-in-out;
+}
+
+.title-enter,
+.title-leave-active {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.title-move {
+  transition: all .5s;
+}
+
+.title-leave-active {
+  position: absolute;
+}

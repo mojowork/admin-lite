@@ -4,10 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Element from 'element-ui'
+import NProgress from 'nprogress' // Progress 进度条
 // import store from './store'
 
 import 'normalize.css/normalize.css' // reset css
 import 'element-ui/lib/theme-chalk/index.css'
+import 'nprogress/nprogress.css'// Progress 进度条样式
 import '@/styles/index.less' // global css
 
 Vue.use(Element)
@@ -20,4 +22,13 @@ new Vue({
   // store,
   template: '<App/>',
   components: { App }
+})
+
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done() // 结束Progress
 })
