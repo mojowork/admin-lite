@@ -72,10 +72,10 @@
 		data() {
 			return {
 				brandName:'AdminLite',
-        shortName: 'Lite',
+				shortName: 'Lite',
 				collapsed: false,
-        userAvatar: 'http://oxdyq538l.bkt.clouddn.com/Avatar.jpg',
-        userName: 'chaoshuai'
+				userAvatar: '',
+				userName: ''
 			}
 		},
 		methods: {
@@ -99,8 +99,8 @@
 			var user = sessionStorage.getItem('user');
 			if (user) {
 				user = JSON.parse(user);
-				this.sysUserName = user.name || '';
-				this.sysUserAvatar = user.avatar || '';
+				this.userName = user.name || 'chaoshuai';
+				this.userAvatar = user.avatar || 'http://oxdyq538l.bkt.clouddn.com/Avatar.jpg';
 			}
 
 		}

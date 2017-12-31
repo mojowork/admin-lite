@@ -6,6 +6,7 @@ import router from './router'
 import Element from 'element-ui'
 import NProgress from 'nprogress' // Progress 进度条
 // import store from './store'
+import http from '@/utils/request'
 
 import 'normalize.css/normalize.css' // reset css
 import 'element-ui/lib/theme-chalk/index.css'
@@ -15,6 +16,7 @@ import '@/styles/index.less' // global css
 Vue.use(Element)
 
 Vue.config.productionTip = false
+Vue.prototype.$http = http
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
