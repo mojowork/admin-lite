@@ -10,7 +10,7 @@ const http = axios.create({
 
 // request拦截器
 http.interceptors.request.use(req => {
-    req.headers['Token'] = getToken() // 让每个请求携带token
+    req.headers['Lite-Token'] = getToken() // 让每个请求携带token
     return req
 }, error => {
     // Do something with request error
@@ -28,15 +28,16 @@ http.interceptors.response.use(
         * code == 3 warning
         */
         const res = response.data
-        if (res.code !== 2) {
+
+        if (res.code != 200) {
             Message({
-                message: res.data,
+                message: res.msg,
                 type: 'error',
                 duration: 5 * 1000
             })
-            return Promise.reject('error')
+            return Promise.reject(res)
         } else {
-            return response.data
+            return Promise.resolve(res)
         }
     },
     error => {

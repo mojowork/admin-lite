@@ -8,12 +8,12 @@
 				<span v-if="!collapsed">{{brandName}}</span>
 			</transition>
 			</el-col>
-			<el-col :span="10">
+			<el-col :span="4">
 				<div class="tools" @click.prevent="collapse">
 					<i class="iconfont icon-menu"></i>
 				</div>
 			</el-col>
-			<el-col :span="4" class="userinfo">
+			<el-col :span="10" class="userinfo">
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner"><img :src="userAvatar"/> {{userName}}</span>
 					<el-dropdown-menu slot="dropdown">
@@ -79,17 +79,18 @@
 			}
 		},
 		methods: {
-			onSubmit() {},
-			handleopen() {
-				//console.log('handleopen');
-			},
-			handleclose() {
-				//console.log('handleclose');
-			},
+			handleopen() {},
+			handleclose() {},
 			handleselect () {
 			},
 
-			logout() {},
+			logout() {
+				this.$http.post('/login/logout')
+				.then(data => {
+					this.$router.push({ path: '/login' });
+					this.$message.success(data.msg)
+				})
+			},
 			//折叠导航栏
 			collapse(){
 				this.collapsed=!this.collapsed;
@@ -99,8 +100,8 @@
 			var user = sessionStorage.getItem('user');
 			if (user) {
 				user = JSON.parse(user);
-				this.userName = user.name || 'chaoshuai';
-				this.userAvatar = user.avatar || 'http://oxdyq538l.bkt.clouddn.com/Avatar.jpg';
+				this.userName = user.name || '';
+				this.userAvatar = user.avatar || '';
 			}
 
 		}
@@ -210,11 +211,6 @@
 				flex:1;
 				overflow-y: scroll;
 				padding: 20px;
-				-webkit-transition: 1s all;
-				 -moz-transition: 1s all; 
-				 -ms-transition: 1s all;
-				  -o-transition: 1s all;
-				 transition: 1s all;
 				.breadcrumb-container {
 					.title {
 						width: 200px;

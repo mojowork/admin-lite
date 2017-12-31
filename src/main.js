@@ -13,6 +13,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import '@/styles/index.less' // global css
 
+import '@/mock/index'
+
 Vue.use(Element)
 
 Vue.config.productionTip = false

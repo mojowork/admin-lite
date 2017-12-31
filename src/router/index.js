@@ -9,11 +9,12 @@ const IM = file => () => import(`@/components/pages/${file}.vue`)
 
 // Layout
 import Main from '@/views/Main'
-// app
+
 import Login from '@/views/Login'
 import NotFound from '@/views/404'
 
 Vue.use(Router)
+
 /**
  * @param {Boolean}  hidden 隐藏，不在导航栏显示
  * @param {Boolean}  unique 唯一子元素，在导航栏只有一栏，没有子元素
