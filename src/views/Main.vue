@@ -17,7 +17,7 @@
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner"><img :src="userAvatar"/> {{userName}}</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>我的消息</el-dropdown-item>
+						<el-dropdown-item>个人中心</el-dropdown-item>
 						<el-dropdown-item>设置</el-dropdown-item>
 						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
 					</el-dropdown-menu>
@@ -34,34 +34,31 @@
 						<el-submenu :index="index+''" v-if="!item.unique">
 							<template slot="title"><i :class="item.icon"class="menu-icon"></i>
 								<transition name="title" mode="out-in">
-									<span v-if="!collapsed">{{item.name}}</span>
+									<span v-if="!collapsed">{{item.meta&&item.meta.title}}</span>
 								</transition>
 							</template>
-							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
+							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.meta&&child.meta.title}}</el-menu-item>
 						</el-submenu>
-						<el-menu-item v-if="item.unique&&item.children.length>0" :index="item.children[0].path"><i :class="item.icon"></i>{{item.children[0].name}}</el-menu-item>
+						<el-menu-item v-if="item.unique&&item.children.length>0" :index="item.children[0].path"><i :class="item.icon"></i>{{item.children[0].meta&&item.children[0].meta.title}}</el-menu-item>
 					</template>
 				</el-menu>
 			</aside>
       <!-- 内容区域 -->
 			<section class="content-container">
-				<div class="grid-content bg-purple-light">
-					<el-col :span="24" class="breadcrumb-container">
-						<strong class="title">{{$route.name}}</strong>
-						<el-breadcrumb separator="/" class="breadcrumb-inner">
-							<transition-group name="breadcrumb">
-								<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
-									{{ item.name }}
-								</el-breadcrumb-item>
-							</transition-group>
-						</el-breadcrumb>
-					</el-col>
-					<el-col :span="24" class="content-wrapper">
-						<transition name="fade" mode="out-in">
-							<router-view></router-view>
-						</transition>
-					</el-col>
-				</div>
+				<el-col :span="24" class="breadcrumb-container">
+					<el-breadcrumb separator="/" class="breadcrumb-inner">
+						<transition-group name="breadcrumb">
+							<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+								{{ item.meta&&item.meta.title }}
+							</el-breadcrumb-item>
+						</transition-group>
+					</el-breadcrumb>
+				</el-col>
+				<el-col :span="24" class="content-wrapper">
+					<transition name="fade" mode="out-in">
+						<router-view></router-view>
+					</transition>
+				</el-col>
 			</section>
 		</el-col>
 	</div>
@@ -98,6 +95,7 @@
 		},
 		mounted() {
 			var user = sessionStorage.getItem('user');
+			console.log(this.$route.matched)
 			if (user) {
 				user = JSON.parse(user);
 				this.userName = user.name || '';
@@ -182,6 +180,10 @@
 						color: #fff;
 						padding-right: 15px;
 					}
+					.el-submenu .el-menu-item{
+						text-indent: 15px;
+						// text-align: center;
+					}
 				}
 				.collapsed{
 					width:60px;
@@ -212,13 +214,9 @@
 				overflow-y: scroll;
 				padding: 20px;
 				.breadcrumb-container {
-					.title {
-						width: 200px;
-						float: left;
-						color: #475669;
-					}
 					.breadcrumb-inner {
 						float: right;
+						margin: 0 15px 5px 0;
 					}
 				}
 				.content-wrapper {

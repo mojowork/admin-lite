@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import Element from 'element-ui'
 import NProgress from 'nprogress' // Progress 进度条
-// import store from './store'
+import store from '@/store'
 import http from '@/utils/request'
 
 import 'normalize.css/normalize.css' // reset css
@@ -23,7 +23,7 @@ Vue.prototype.$http = http
 new Vue({
   el: '#app',
   router,
-  // store,
+  store,
   template: '<App/>',
   components: { App }
 })
