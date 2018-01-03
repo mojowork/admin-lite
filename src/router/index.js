@@ -21,8 +21,8 @@ Vue.use(Router)
  * @param {String}  icon 图标，在导航栏显示(阿里的iconfont)
  */
 export const appRoutes = [
-  {path: '/',  hidden: true,  redirect: '/access' },
-  {path: '/login', hidden: true, component: Login },
+  {path: '/',  hidden: true,  redirect: '/table' },
+  {path: '/login', name: 'login', hidden: true, component: Login },
   {path: '/', hidden: true, component: Main, children: [
     { path: '/404', name: 'NotFound', meta: {  title: 'NotFound' }, component: NotFound}
   ]}]
@@ -46,7 +46,7 @@ export const pagesRoutes = [
     icon: 'iconfont icon-quanxian',
     component: Main,
     children: [
-      { path: '/access', name: 'access', meta: {  title: '权限划分' }, component: IM('form/Form') }]
+      { path: '/access', name: 'access', meta: {  title: '权限划分' }, component: IM('access/Access') }]
   },
 
   {
@@ -56,7 +56,7 @@ export const pagesRoutes = [
     icon: 'iconfont icon-settingfull',
     component: Main,
     children: [
-      { path: '/setting', name: 'setting', meta: {  title: '样式设置'} , component: IM('table/Table') }]
+      { path: '/setting', name: 'setting', meta: {  title: '样式设置'} , component: IM('setting/Setting') }]
   },
 
   { path: '*', hidden: true, redirect: '/404'}]

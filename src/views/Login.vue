@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import {setToken} from '@/utils/auth'
   export default {
     data() {
       return {
@@ -42,9 +43,11 @@
               password: this.ruleForm.checkPass
             }).then(data => {
               this.logining = false;
-              let {code, msg, user } = data;
+              let {code, msg, token, user } = data;
               if (code == 200) {
-                sessionStorage.setItem('user', JSON.stringify(user));
+                setToken(token)
+                // sessionStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('user', JSON.stringify(user));
                 this.$router.push({ path: '/' });
               }
             });

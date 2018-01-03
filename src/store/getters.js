@@ -1,5 +1,5 @@
 const getters = {
-  // count
-  getCount: state => state.count
+  // sidbar
+  getCollapsed: state => state.app.collapsed
 }
 export default getters

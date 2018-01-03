@@ -65,21 +65,26 @@
 </template>
 
 <script>
+import {getToken} from '@/utils/auth'
 	export default {
 		data() {
 			return {
 				brandName:'AdminLite',
 				shortName: 'Lite',
-				collapsed: false,
 				userAvatar: '',
-				userName: ''
+				userName: '',
+				token: getToken()
+			}
+		},
+		computed: {
+			collapsed() {
+				return this.$store.getters.getCollapsed
 			}
 		},
 		methods: {
 			handleopen() {},
 			handleclose() {},
-			handleselect () {
-			},
+			handleselect () {},
 
 			logout() {
 				this.$http.post('/login/logout')
@@ -90,16 +95,23 @@
 			},
 			//折叠导航栏
 			collapse(){
-				this.collapsed=!this.collapsed;
+				this.$store.dispatch('ToggleSideBar')
 			}
 		},
 		mounted() {
-			var user = sessionStorage.getItem('user');
-			console.log(this.$route.matched)
+			var user = localStorage.getItem('user');
 			if (user) {
 				user = JSON.parse(user);
-				this.userName = user.name || '';
-				this.userAvatar = user.avatar || '';
+				this.userName = user.name
+				this.userAvatar = user.avatar
+			} else {
+				this.$http.get('/login/getUserInfo',this.token).then(res => {
+					var data = res.data
+					console.log(res)
+					this.userName = data.name
+					this.userAvatar = data.avatar
+					localStorage.setItem('user', JSON.stringify(data));
+				})
 			}
 
 		}
@@ -136,10 +148,10 @@
 			}
 			.logo {
 				height:64px;
-        		text-align: center;
+        text-align: center;
 				font-size: 22px;
 				color:#20a0ff;
-        		background-color: #304156;
+        background-color: #304156;
 				border-right: 1px solid rgba(238,241,146,0.3);
 				img {
 					width: 40px;
@@ -152,7 +164,7 @@
 			}
 			.logo-width{
 				width: 200px;
-        		transition: width 0.3s ease-in-out;
+        transition: width 0.3s ease-in-out;
 			}
 			.logo-collapse-width{
 				width: 64px
@@ -213,6 +225,7 @@
 				flex:1;
 				overflow-y: scroll;
 				padding: 20px;
+				margin-top:2px;
 				.breadcrumb-container {
 					.breadcrumb-inner {
 						float: right;

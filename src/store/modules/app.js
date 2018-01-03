@@ -1,24 +1,18 @@
 
 const app = {
   state: {
-    count: 10
+    collapsed: true
   },
 
   mutations: {
-    INCREMENT(state) {
-        state.count++
-    },
-    DECREMENT(state) {
-        state.count--
+    TOGGLE_SIDEBAR(state) {
+      state.collapsed = !state.collapsed
     }
   },
 
   actions: {
-    increment: ({commit}) => {
-      commit('INCREMENT')
-    },
-    decrement:  ({commit}) => {
-      commit('DECREMENT')
+    ToggleSideBar: ({commit}) => {
+      commit('TOGGLE_SIDEBAR')
     }
   }
 }

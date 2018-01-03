@@ -13,6 +13,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import '@/styles/index.less' // global css
 
+import '@/access'
 import '@/mock/index'
 
 Vue.use(Element)
@@ -26,13 +27,4 @@ new Vue({
   store,
   template: '<App/>',
   components: { App }
-})
-
-router.beforeEach((to, from, next) => {
-  NProgress.start()
-  next()
-})
-
-router.afterEach(() => {
-  NProgress.done() // 结束Progress
 })
