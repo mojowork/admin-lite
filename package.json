@@ -1,7 +1,7 @@
 {
   "name": "admin-lite",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
+  "version": "0.1.0",
+  "description": "admin template powered by vue2 && Element2",
   "author": "chaoshuai <chao.shuai@takecloud.com>",
   "private": true,
   "scripts": {
@@ -9,6 +9,14 @@
     "start": "npm run dev",
     "build": "node build/build.js"
   },
+  "keywords": [
+    "vue",
+    "admin",
+    "vue-admin",
+    "element",
+    "dashboard",
+    "element-ui"
+  ],
   "dependencies": {
     "axios": "^0.17.1",
     "element-ui": "^2.0.10",

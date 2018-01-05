@@ -1,7 +1,7 @@
 
 const app = {
   state: {
-    collapsed: true
+    collapsed: false
   },
 
   mutations: {

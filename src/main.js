@@ -13,13 +13,33 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import '@/styles/index.less' // global css
 
-import '@/access'
 import '@/mock/index'
+import { getToken, removeToken } from '@/utils/auth' // 验权
 
 Vue.use(Element)
 
+
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+
+  if (to.name === 'login') {
+    removeToken()
+    next()
+  } else {
+      if (getToken()) {
+        next()
+      } else {
+        next({ name: 'login' })
+      }
+  }
+})
+
+router.afterEach(() => {
+  NProgress.done() // 结束Progress
+})
+
 Vue.config.productionTip = false
-Vue.prototype.$http = http
+Vue.prototype.$http = http // 使用this.$http调用axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

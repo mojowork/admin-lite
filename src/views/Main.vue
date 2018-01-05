@@ -26,8 +26,8 @@
 		</header>
 		<el-col :span="24" class="main">
       <!--导航菜单-->
-			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
-				<el-menu :default-active="$route.path" @open="handleopen" @close="handleclose" @select="handleselect"
+			<aside :class="collapsed?'menu-collapsed':''">
+				<el-menu :default-active="$route.path" @open="handleopen" @close="handleclose" @select="handleselect" class="el-menu-vertical-demo"
 					 unique-opened router :collapse="collapsed"
            background-color="#304156" text-color="#fff" active-text-color="#409EFF">
 					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
@@ -150,7 +150,7 @@ import {getToken} from '@/utils/auth'
 				height:64px;
         text-align: center;
 				font-size: 22px;
-				color:#20a0ff;
+				color: #20a0ff;
         background-color: #304156;
 				border-right: 1px solid rgba(238,241,146,0.3);
 				img {
@@ -167,7 +167,8 @@ import {getToken} from '@/utils/auth'
         transition: width 0.3s ease-in-out;
 			}
 			.logo-collapse-width{
-				width: 64px
+				width: 64px;
+				transition: width 0.3s ease-in-out;
 			}
 			.tools{
 				padding: 0px 23px;
@@ -182,9 +183,12 @@ import {getToken} from '@/utils/auth'
 			bottom: 0px;
 			overflow: hidden;
 			aside {
-				flex:0 200px;
 				width: 200px;
-				transition: width 0.3s;
+				transition: width .3s ease-in-out;
+				z-index: 99;
+				 .el-menu-vertical-demo:not(.el-menu--collapse) { // element-UI 示例中的，不加折叠边框无过度效果
+					 width: 200px;
+				 }
 				.el-menu{
 					height: 100%;
 					border: none;
@@ -197,29 +201,16 @@ import {getToken} from '@/utils/auth'
 						// text-align: center;
 					}
 				}
-				.collapsed{
-					width:60px;
-				}
 			}
 			.menu-collapsed{
-				flex:0 64px;
+				// flex: 0 64px;
 				width: 64px;
-				transition: width 0.3s;
+				transition: width 0.3s ease-in-out;
 				text-align: center;
 				span {
-					height: 0;
-					width: 0;
-					overflow: hidden;
 					visibility: hidden;
-					transition: opacity .3s cubic-bezier(.55, 0, .1, 1);
 					opacity: 0;
-					display: inline-block;
 				}
-			}
-			.menu-expanded{
-				flex:0 200px;
-				width: 200px;
-				transition: width 0.3s;
 			}
 			.content-container {
 				flex:1;

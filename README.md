@@ -1,6 +1,6 @@
 # admin-lite
 
-> A Vue.js project
+> admin template powered by vue2 && Element2
 
 ## Build Setup
 
@@ -18,4 +18,7 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+<!-- ## Demo
+![demo]() -->
+
+**Live demo:** http://x-lite.github.io/admin-lite
