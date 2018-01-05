@@ -21,7 +21,7 @@ Vue.use(Router)
  * @param {String}  icon 图标，在导航栏显示(阿里的iconfont)
  */
 export const appRoutes = [
-  {path: '/',  hidden: true,  redirect: '/form' },
+  {path: '/',  hidden: true,  redirect: '/table' },
   {path: '/login', name: 'login', hidden: true, component: Login },
   {path: '/', hidden: true, component: Main, children: [
     { path: '/404', name: 'NotFound', meta: {  title: 'NotFound' }, component: NotFound}

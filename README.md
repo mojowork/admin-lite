@@ -18,7 +18,7 @@ npm run build
 npm run build --report
 ```
 
-<!-- ## Demo
-![demo]() -->
+## Demo
+![demo](http://oxdyq538l.bkt.clouddn.com/demo.png)
 
 **Live demo:** http://x-lite.github.io/admin-lite

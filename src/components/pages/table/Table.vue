@@ -3,21 +3,21 @@
       <section>
         <el-form  :model="queryForm" ref="queryForm"  class="query-form" label-width="80px">
           <el-row class="form">
-          <el-col :span="9">
+          <el-col :md="24" :lg="10">
               <el-form-item label="商品名称">
                 <el-input v-model="queryForm.gname" placeholder="请输入商品名称"></el-input>
               </el-form-item>
           </el-col>
-          <el-col :span="9">
-              <el-form-item label="商品类别">
+          <el-col  :md="24" :lg="10">
+              <el-form-item label="类别">
                 <el-select v-model="queryForm.cid" placeholder="请选择分类">
                   <el-option v-for="item in categoryList" :label="item.name" :value="item.id" :key="item.id"></el-option>
                 </el-select>
               </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col  :md="12" :lg="2" :pull="1">
               <el-form-item label="">
-                  <el-button type="primary" style="margin-left:15px;margin-bottom:20px;" @click="searchGoods" icon="search">查询商品</el-button>
+                  <el-button type="primary" @click="searchGoods" icon="search">查询商品</el-button>
               </el-form-item>
           </el-col>
           </el-row>
@@ -27,6 +27,7 @@
             <el-table
                 :data="tableData"
                 style="width: 100%"
+                v-loading="loading"
                 border>
                 <!-- <el-table-column
                   type="selection"
@@ -56,9 +57,6 @@
                         label="类别"
                         align="center"
                         width="100">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.category.name}}</span>
-                    </template>
                 </el-table-column>
 
                 <el-table-column
@@ -109,14 +107,17 @@
             return {
                 queryForm: { // 查询数据
                     gname: '',
-                    cid: 0
+                    cid: 1
                 },
-                categoryList: [],
+                categoryList: [
+                  {id:1,name:'水果'},
+                  {id:2,name: '蔬菜'}],
 
                 tableData: [],
                 pageIndex: 1,  // 分页
                 pageSize: 15,
                 total: 0,
+                loading: false
 
             }
         },
@@ -126,10 +127,13 @@
 
         methods: {
           getGoodsList() {
+            this.loading = true
             this.$http.get('/goods/getList',{
               pageIndex: this.pagesIndex,
               pageSize: this.pageSize
             }).then(res => {
+              this.loading = false
+              console.log(res)
               this.tableData = res.data;
               this.total = res.data.length;
               // console.log(res.data)

@@ -197,8 +197,8 @@ import {getToken} from '@/utils/auth'
 						padding-right: 15px;
 					}
 					.el-submenu .el-menu-item{
-						text-indent: 15px;
-						// text-align: center;
+						// text-indent: 15px;
+						text-align: center;
 					}
 				}
 			}
@@ -206,7 +206,6 @@ import {getToken} from '@/utils/auth'
 				// flex: 0 64px;
 				width: 64px;
 				transition: width 0.3s ease-in-out;
-				text-align: center;
 				span {
 					visibility: hidden;
 					opacity: 0;
