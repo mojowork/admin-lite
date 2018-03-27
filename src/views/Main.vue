@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import {getToken} from '@/utils/auth';
 	export default {
 		data() {
 			return {
@@ -75,7 +74,6 @@ import {getToken} from '@/utils/auth';
         shortBrandImg:'https://weapp-1253522117.image.myqcloud.com//image/20180327/9b059f0353baffb2.png',
 				userAvatar: '',
 				userName: '',
-				token: getToken()
 			}
 		},
 		computed: {
@@ -87,36 +85,13 @@ import {getToken} from '@/utils/auth';
 			handleopen() {},
 			handleclose() {},
 			handleselect () {},
-
-			logout() {
-				this.$http.post('/login/logout')
-				.then(data => {
-					this.$router.push({ path: '/login' });
-					this.$message.success(data.msg)
-				})
-			},
+			logout() {},
 			//折叠导航栏
 			collapse(){
 				this.$store.dispatch('ToggleSideBar')
 			}
 		},
-		mounted() {
-			var user = localStorage.getItem('user');
-			if (user) {
-				user = JSON.parse(user);
-				this.userName = user.name
-				this.userAvatar = user.avatar
-			} else {
-				this.$http.get('/login/getUserInfo',this.token).then(res => {
-					var data = res.data
-					console.log(res)
-					this.userName = data.name
-					this.userAvatar = data.avatar
-					localStorage.setItem('user', JSON.stringify(data));
-				})
-			}
-
-		}
+		mounted() {}
 	}
 
 </script>

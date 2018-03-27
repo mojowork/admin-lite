@@ -1,24 +1,22 @@
-import axios from 'axios'
-import { Message } from 'element-ui'
-import { getToken,removeToken } from '@/utils/auth'
+import axios from 'axios';
+import { Message } from 'element-ui';
+//import Registry from './registry';
+// const initData = Registry.get('initData') || initData;
 
 // 创建axios实例
 const http = axios.create({
-    baseURL: process.env.BASE_API, // api的base_url
+    baseURL: initData.api, // api的baseURL
     timeout: 15000 // 请求超时时间
-})
+});
 
 // request拦截器
 http.interceptors.request.use(req => {
-  if(getToken){
-    req.headers['Lite-Token'] = getToken() // 让每个请求携带token
-  }
-    return req
+  return req.headers['Token'] = initData.token; // 让每个请求携带token
 }, error => {
     // Do something with request error
-    console.log(error) // for debug
-    Promise.reject(error)
-})
+    console.log(error); // for debug
+    Promise.reject(error);
+});
 
 // respone拦截器
 http.interceptors.response.use(
@@ -41,24 +39,38 @@ http.interceptors.response.use(
         *  504: '网关超时'
         *
         */
-        const res = response.data
+       var result;
+        try {
+          result = JSON.parse(response);
+        } catch (error) {
+          result = response;
+        }
 
-        if (res.code != 200) {
-            Message({
-                message: res.msg,
-                type: 'error',
-                duration: 5 * 1000
-            })
-            // 返回 401 清除token信息并跳转到登录页面
-            if(res.code == 401){
-              removeToken()
-              router.replace({
-                  path: '/login'
-              })
-            }
-            return Promise.reject(res)
+        if (result.code < 0 ) {
+          if (result.code == -2 || result.code == -10) {
+            Message.error({
+              message: result.msg
+            });
+            Promise.reject(result);
+          }else{
+            Promise.reject(result);
+          }
         } else {
-            return Promise.resolve(res)
+          if (result.code == 2) {
+            Message.success({
+              message: result.msg
+            });
+          } else if (result.code == 3) {
+            Message.warning({
+              message: result.msg
+            });
+          } else if (result.code == 4) {
+            MessageBox.alert(result.msg, '提示', {
+              confirmButtonText: '确定',
+              type:'warning'
+            });
+          }
+          Promise.resolve(result.data);
         }
     },
     error => {
@@ -67,9 +79,8 @@ http.interceptors.response.use(
             message: error.message,
             type: 'error',
             duration: 5 * 1000
-        })
-        return Promise.reject(error)
+        });
+        return Promise.reject(error);
     }
-)
-
-export default http
+);
+export default http;
