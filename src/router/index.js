@@ -2,18 +2,19 @@
  * routes map
  * @type {Array}
  */
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-const IM = file => () => import(`@/components/pages/${file}.vue`)
+// 懒加载，组件多时优化性能
+const IM = file => () => import(`@/components/pages/${file}.vue`);
 
 // Layout
-import Main from '@/views/Main'
+import Main from '@/views/Main';
 
-import Login from '@/views/Login'
-import NotFound from '@/views/404'
+import Login from '@/views/Login';
+import NotFound from '@/views/404';
 
-Vue.use(Router)
+Vue.use(Router);
 
 /**
  * @param {Boolean}  hidden 隐藏，不在导航栏显示
@@ -25,30 +26,9 @@ export const appRoutes = [
   {path: '/login', name: 'login', hidden: true, component: Login },
   {path: '/', hidden: true, component: Main, children: [
     { path: '/404', name: 'NotFound', meta: {  title: 'NotFound' }, component: NotFound}
-  ]}]
+  ]}];
 
 export const pagesRoutes = [
-  {
-    path: '/',
-    name: 'Table',
-    meta: { title: '导航一' },
-    icon: 'iconfont icon-bianji-copy',
-    component: Main,
-    children: [
-      { path: '/form', name: 'form', meta: {  title: '表单' }, component: IM('form/Form')},
-      { path: '/table', name: 'table',meta: {  title: '表格' }, component: IM('table/Table') }]
-  },
-
-  {
-    path: '/',
-    name: 'Access',
-    meta: {  title: '权限管理' },
-    icon: 'iconfont icon-quanxian',
-    component: Main,
-    children: [
-      { path: '/access', name: 'access', meta: {  title: '权限划分' }, component: IM('access/Access') }]
-  },
-
   {
     path: '/',
     name: 'Setting',
@@ -56,10 +36,29 @@ export const pagesRoutes = [
     icon: 'iconfont icon-settingfull',
     component: Main,
     children: [
-      { path: '/setting', name: 'setting', meta: {  title: '样式设置'} , component: IM('setting/Setting') }]
+      { path: '/setting/authorize', name: 'authorize', meta: {  title: '小程序授权'} , component: IM('setting/Setting') },
+      { path: '/setting', name: 'setting', meta: {  title: '小程序设置'} , component: IM('setting/Setting') },
+      { path: '/setting/template', name: 'template', meta: {  title: '模板管理'} , component: IM('setting/Setting') },
+      { path: '/setting/publish', name: 'publish', meta: {  title: '发布管理'} , component: IM('setting/Setting') },
+      { path: '/setting/message', name: 'message', meta: {  title: '消息提醒'} , component: IM('setting/Setting') },
+      { path: '/setting/rights', name: 'rights', meta: {  title: '权限管理'} , component: IM('setting/Setting') },
+      ]
+  },
+  {
+    path: '/',
+    name: 'Analysis',
+    meta: { title: '数据分析' },
+    icon: 'iconfont icon-tubiao',
+    component: Main,
+    children: [
+      { path: '/data/survey', name: 'survey', meta: {  title: '数据概况'} , component: IM('analysis/Analysis') },
+      { path: '/data/accessAnalysis', name: 'accessAnalysis', meta: {  title: '访问分析'} , component: IM('analysis/Analysis') },
+      { path: '/data/userPortrait', name: 'userPortrait', meta: {  title: '用户画像'} , component: IM('analysis/Analysis') },
+    ]
   },
 
-  { path: '*', hidden: true, redirect: '/404'}]
+  { path: '*', hidden: true, redirect: '/404'}
+  ];
 
 export default new Router({
   routes: [...appRoutes, ...pagesRoutes]

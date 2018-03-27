@@ -50,7 +50,7 @@ http.interceptors.response.use(
                 duration: 5 * 1000
             })
             // 返回 401 清除token信息并跳转到登录页面
-            if(res.code != 401){
+            if(res.code == 401){
               removeToken()
               router.replace({
                   path: '/login'

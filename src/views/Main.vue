@@ -2,27 +2,29 @@
 	<div class="container">
     <!-- 头部 -->
 		<header class="header">
-			<el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
-			<span v-if="collapsed">{{shortName}}</span>
-			<transition name="title" mode="out-in">
-				<span v-if="!collapsed">{{brandName}}</span>
-			</transition>
-			</el-col>
-			<el-col :span="4">
+			<div class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
+        <transition name="title" mode="out-in">
+          <img v-if="!collapsed" :src="brandImg" alt="">
+        </transition>
+        <transition name="title" mode="out-in">
+          <img v-if="collapsed" :src="shortBrandImg">
+			  </transition>
+			</div>
+			<div class="app-info">
 				<div class="tools" @click.prevent="collapse">
 					<i class="iconfont icon-menu"></i>
 				</div>
-			</el-col>
-			<el-col :span="10" class="userinfo">
+			</div>
+			<div class="userinfo">
 				<el-dropdown trigger="hover">
-					<span class="el-dropdown-link userinfo-inner"><img :src="userAvatar"/> {{userName}}</span>
+					<span class="el-dropdown-link userinfo-inner">我的工作台<i class="el-icon-caret-bottom"></i></span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>个人中心</el-dropdown-item>
-						<el-dropdown-item>设置</el-dropdown-item>
-						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+						<el-dropdown-item>小程序详情</el-dropdown-item>
+						<el-dropdown-item>切换小程序</el-dropdown-item>
+						<el-dropdown-item divided @click.native="logout">退出小程序</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
-			</el-col>
+			</div>
 		</header>
 		<el-col :span="24" class="main">
       <!--导航菜单-->
@@ -65,12 +67,12 @@
 </template>
 
 <script>
-import {getToken} from '@/utils/auth'
+import {getToken} from '@/utils/auth';
 	export default {
 		data() {
 			return {
-				brandName:'AdminLite',
-				shortName: 'Lite',
+				brandImg: 'https://weapp-1253522117.image.myqcloud.com//image/20170816/6cff8d98453df6fd.png',
+        shortBrandImg:'https://weapp-1253522117.image.myqcloud.com//image/20180327/9b059f0353baffb2.png',
 				userAvatar: '',
 				userName: '',
 				token: getToken()
@@ -131,60 +133,53 @@ import {getToken} from '@/utils/auth'
 			line-height: 60px;
 			background: #fff;
 			box-shadow: 0 1px 2px #999;
-			.userinfo {
-				text-align: right;
-				padding-right: 35px;
-				float: right;
-				.userinfo-inner {
-					cursor: pointer;
-					img {
-						width: 40px;
-						height: 40px;
-						border-radius: 20px;
-						margin: 10px 0px 10px 10px;
-						float: right;
-					}
-				}
-			}
+			display: flex;
 			.logo {
-				height:64px;
+				height:100%;
         text-align: center;
-				font-size: 22px;
-				color: #20a0ff;
         background-color: #304156;
-				border-right: 1px solid rgba(238,241,146,0.3);
 				img {
-					width: 40px;
-					float: left;
-					margin: 10px 10px 10px 18px;
-				}
-				.txt {
-					color:#fff;
+          text-align: center;
+          margin: 13px 0;
 				}
 			}
 			.logo-width{
 				width: 200px;
-        transition: width 0.3s ease-in-out;
+				flex: 0 200px;
+        transition: all 0.3s ease-in-out;
 			}
 			.logo-collapse-width{
 				width: 64px;
-				transition: width 0.3s ease-in-out;
+				flex: 0 64px;
+				transition: all 0.3s ease-in-out;
 			}
-			.tools{
-				padding: 0px 23px;
-				width:14px;
-				cursor: pointer;
+			.app-info{
+				flex: 1;
+				.tools{
+					padding: 0px 23px;
+					width: 14px;
+					cursor: pointer;
+				}
+			}
+			.userinfo {
+				width: 150px;
+				text-align: center;
+				flex: 0 150px;
+				.userinfo-inner {
+					cursor: pointer;
+				}
 			}
 		}
 		.main {
 			display: flex;
 			position: absolute;
 			top: 60px;
-			bottom: 0px;
+			bottom: 0;
 			overflow: hidden;
 			aside {
+        flex: 0 200px;
 				width: 200px;
-				transition: width .3s ease-in-out;
+				transition: all .3s ease-in-out;
 				z-index: 99;
 				 .el-menu-vertical-demo:not(.el-menu--collapse) { // element-UI 示例中的，不加折叠边框无过度效果
 					 width: 200px;
@@ -196,16 +191,12 @@ import {getToken} from '@/utils/auth'
 						color: #fff;
 						padding-right: 15px;
 					}
-					.el-submenu .el-menu-item{
-						// text-indent: 15px;
-						text-align: center;
-					}
 				}
 			}
 			.menu-collapsed{
-				// flex: 0 64px;
+				flex: 0 64px;
 				width: 64px;
-				transition: width 0.3s ease-in-out;
+				transition: all 0.3s ease-in-out;
 				span {
 					visibility: hidden;
 					opacity: 0;
