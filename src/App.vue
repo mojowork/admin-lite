@@ -9,7 +9,7 @@ export default {
   name: 'app'
 }
 </script>
-<style lang="less">
-@import './styles/index.less';
+<style lang="scss">
+@import './styles/index.scss';
 </style>
 

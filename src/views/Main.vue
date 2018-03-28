@@ -31,17 +31,17 @@
 			<aside :class="collapsed?'menu-collapsed':''">
 				<el-menu :default-active="$route.path" @open="handleopen" @close="handleclose" @select="handleselect" class="el-menu-vertical-demo"
 					 unique-opened router :collapse="collapsed"
-           background-color="#304156" text-color="#fff" active-text-color="#409EFF">
+           background-color="#304156" text-color="#909399">
 					<template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
 						<el-submenu :index="index+''" v-if="!item.unique">
-							<template slot="title"><i :class="item.icon"class="menu-icon"></i>
+							<template slot="title"><i :class="item.icon" class="menu-icon"></i>
 								<transition name="title" mode="out-in">
 									<span v-if="!collapsed">{{item.meta&&item.meta.title}}</span>
 								</transition>
 							</template>
 							<el-menu-item v-for="child in item.children" :index="child.path" :key="child.path" v-if="!child.hidden">{{child.meta&&child.meta.title}}</el-menu-item>
 						</el-submenu>
-						<el-menu-item v-if="item.unique&&item.children.length>0" :index="item.children[0].path"><i :class="item.icon"></i>{{item.children[0].meta&&item.children[0].meta.title}}</el-menu-item>
+						<el-menu-item v-if="item.unique&&item.children.length>0" :index="item.children[0].path"><i :class="item.icon" class="menu-icon"></i><span slot="title">{{item.children[0].meta&&item.children[0].meta.title}}</span></el-menu-item>
 					</template>
 				</el-menu>
 			</aside>
@@ -72,8 +72,6 @@
 			return {
 				brandImg: 'https://weapp-1253522117.image.myqcloud.com//image/20170816/6cff8d98453df6fd.png',
         shortBrandImg:'https://weapp-1253522117.image.myqcloud.com//image/20180327/9b059f0353baffb2.png',
-				userAvatar: '',
-				userName: '',
 			}
 		},
 		computed: {
@@ -81,7 +79,8 @@
 				return this.$store.getters.getCollapsed
 			}
 		},
-		methods: {
+    mounted() {},
+    methods: {
 			handleopen() {},
 			handleclose() {},
 			handleselect () {},
@@ -90,18 +89,16 @@
 			collapse(){
 				this.$store.dispatch('ToggleSideBar')
 			}
-		},
-		mounted() {}
+		}
 	}
 
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 
 	.container {
 		position: absolute;
-		top: 0px;
-		bottom: 0px;
+		top: 0;	bottom: 0;
 		width: 100%;
 		.header {
 			height: 60px;
@@ -163,8 +160,8 @@
 					height: 100%;
 					border: none;
 					.menu-icon{
-						color: #fff;
-						padding-right: 15px;
+						/*color: #fff;*/
+						padding-right: 5px;
 					}
 				}
 			}

@@ -11,10 +11,12 @@ import { http } from '@/utils/';
 import 'normalize.css/normalize.css'; // reset css
 import 'element-ui/lib/theme-chalk/index.css';
 import 'nprogress/nprogress.css';// Progress 进度条样式
-import '@/styles/index.less'; // global css
+import '@/styles/index.scss'; // global css
 
 Vue.use(Element);
+Vue.use(() => {
 
+});
 
 router.beforeEach((to, from, next) => {
   NProgress.start();
@@ -27,6 +29,7 @@ router.afterEach(() => {
 
 Vue.config.productionTip = false;
 Vue.prototype.$api = http; // 使用this.$api调用axios,简化操作
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

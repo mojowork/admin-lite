@@ -154,7 +154,7 @@
 
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
   .query-form{
       margin-bottom: 20px;
       padding-left: 25px;

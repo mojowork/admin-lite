@@ -2,15 +2,19 @@
  * 一些公共样式，（包括 查询区域  表单标题等）
  */
 // common
-@color-primary: rgb(3, 169, 244);
-@color-info: #ecf8ff;
+$color-primary: rgb(3, 169, 244);
+$color-info: #ecf8ff;
+
+body{
+  font-family: 'MicrosoftYaHei' Arial;
+}
 
 .color-primary {
-    color: @color-primary;
+    color: $color-primary;
 }
 
 .color-info {
-    color: @color-info;
+    color: $color-info;
 }
 
 input[type=file] {
@@ -25,9 +29,9 @@ a:hover{
 }
 
 .help-info {
-    color: @color-info;
+    color: $color-info;
     a{
-    	color: @color-primary;
+    	color: $color-primary;
     }
 }
 // custom
@@ -72,4 +76,10 @@ a:hover{
 .my-pagination{
   margin: 10px;
   text-align: right;
+}
+
+.float-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 40px -24px rgba(0, 36, 100, .5);
+  transition: 0.5s ease;
 }

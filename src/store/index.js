@@ -5,13 +5,13 @@ import getters from './getters'
 // modules
 import app from './modules/app'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
     app
   },
   getters
-})
+});
 
-export default store
+export default store;

@@ -61,7 +61,7 @@ import {setToken} from '@/utils/auth'
 
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .login{
     position: absolute;
     min-height: 100%;

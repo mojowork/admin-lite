@@ -22,7 +22,7 @@ Vue.use(Router);
  * @param {String}  icon 图标，在导航栏显示(阿里的iconfont)
  */
 export const appRoutes = [
-  {path: '/',  hidden: true,  redirect: '/table' },
+  {path: '/',  hidden: true,  redirect: '/dashboard' },
   {path: '/login', name: 'login', hidden: true, component: Login },
   {path: '/', hidden: true, component: Main, children: [
     { path: '/404', name: 'NotFound', meta: {  title: 'NotFound' }, component: NotFound}
@@ -31,17 +31,25 @@ export const appRoutes = [
 export const pagesRoutes = [
   {
     path: '/',
+    name: 'Dashboard',
+    meta: { title: '小程序概览' },
+    icon: 'iconfont icon-newdocumentdashboard',
+    component: Main,
+    unique:true,
+    children: [
+      { path: '/dashboard', name: 'dashboard', meta: {  title: '小程序概览'} , component: IM('dashboard/Dashboard') }]
+  },
+  {
+    path: '/',
     name: 'Setting',
     meta: { title: '系统设置' },
-    icon: 'iconfont icon-settingfull',
+    icon: 'iconfont icon-tableprocessdeployment',
     component: Main,
     children: [
-      { path: '/setting/authorize', name: 'authorize', meta: {  title: '小程序授权'} , component: IM('setting/Setting') },
+      { path: '/setting/authorize', name: 'authorize', meta: {  title: '小程序授权'} , component: IM('setting/Authorize') },
       { path: '/setting', name: 'setting', meta: {  title: '小程序设置'} , component: IM('setting/Setting') },
-      { path: '/setting/template', name: 'template', meta: {  title: '模板管理'} , component: IM('setting/Setting') },
-      { path: '/setting/publish', name: 'publish', meta: {  title: '发布管理'} , component: IM('setting/Setting') },
-      { path: '/setting/message', name: 'message', meta: {  title: '消息提醒'} , component: IM('setting/Setting') },
-      { path: '/setting/rights', name: 'rights', meta: {  title: '权限管理'} , component: IM('setting/Setting') },
+      { path: '/setting/publish', name: 'publish', meta: {  title: '发布管理'} , component: IM('setting/Publish') },
+      { path: '/setting/rights', name: 'rights', meta: {  title: '权限管理'} , component: IM('setting/Rights') },
       ]
   },
   {
