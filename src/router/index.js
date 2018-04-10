@@ -21,14 +21,18 @@ Vue.use(Router);
  * @param {Boolean}  unique 唯一子元素，在导航栏只有一栏，没有子元素
  * @param {String}  icon 图标，在导航栏显示(阿里的iconfont)
  */
-export const appRoutes = [
-  {path: '/',  hidden: true,  redirect: '/dashboard' },
-  {path: '/login', name: 'login', hidden: true, component: Login },
-  {path: '/', hidden: true, component: Main, children: [
-    { path: '/404', name: 'NotFound', meta: {  title: 'NotFound' }, component: NotFound}
-  ]}];
 
-export const pagesRoutes = [
+export const routes = [
+  {path: '/',  hidden: true,  redirect: '/dashboard' },
+
+  {path: '/login', name: 'login', hidden: true, component: Login },
+
+  { path: '/',
+    hidden: true,
+    component: Main,
+    children: [
+      { path: '/404', name: 'NotFound', meta: {  title: 'NotFound' }, component: NotFound}]
+  },
   {
     path: '/',
     name: 'Dashboard',
@@ -68,6 +72,4 @@ export const pagesRoutes = [
   { path: '*', hidden: true, redirect: '/404'}
   ];
 
-export default new Router({
-  routes: [...appRoutes, ...pagesRoutes]
-})
+export default new Router({ routes })

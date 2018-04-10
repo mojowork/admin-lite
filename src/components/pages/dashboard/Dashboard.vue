@@ -38,29 +38,6 @@
             <div class="data-item float-item" v-for="i in 4"></div>
         </div>
       </div>
-
-      <el-row :gutter="30">
-        <el-col :span="12">
-          <div>
-            <div class="section-header">
-              <span class="tip"></span>
-              用户增长趋势
-            </div>
-            <div class="content">
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="12">
-          <div>
-            <div class="section-header">
-              <span class="tip"></span>
-              订单增长趋势
-            </div>
-            <div class="content">
-            </div>
-          </div>
-        </el-col>
-      </el-row>
     </div>
 </template>
 
