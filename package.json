@@ -1,6 +1,6 @@
 {
   "name": "admin-lite",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "description": "admin template powered by vue2 && Element2",
   "author": "chaoshuai <chao.shuai@takecloud.com>",
   "private": true,
@@ -11,17 +11,16 @@
   },
   "keywords": [
     "vue",
+    "vuex",
     "admin",
     "vue-admin",
-    "element",
-    "dashboard",
     "element-ui"
   ],
   "dependencies": {
-    "axios": "^0.17.1",
-    "element-ui": "^2.3.3",
+    "axios": "^0.18.0",
+    "element-ui": "^2.3.7",
     "js-cookie": "^2.2.0",
-    "normalize.css": "^7.0.0",
+    "normalize.css": "^8.0.0",
     "nprogress": "^0.2.0",
     "vue": "^2.5.2",
     "vue-echarts": "^3.0.5",
@@ -45,7 +44,6 @@
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
-    "mockjs": "^1.0.1-beta3",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.8.3",
     "optimize-css-assets-webpack-plugin": "^3.2.0",

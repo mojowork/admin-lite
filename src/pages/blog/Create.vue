@@ -1,13 +1,11 @@
 <template>
-
+  <div>
+    blogCreate
+  </div>
 </template>
 
 <script>
     export default {
-        name: "rights"
+        name: "blogCreate"
     }
 </script>
-
-<style scoped>
-
-</style>

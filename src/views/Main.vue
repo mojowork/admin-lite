@@ -19,9 +19,8 @@
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner">我的工作台<i class="el-icon-caret-bottom"></i></span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>小程序详情</el-dropdown-item>
-						<el-dropdown-item>切换小程序</el-dropdown-item>
-						<el-dropdown-item divided @click.native="logout">退出小程序</el-dropdown-item>
+						<el-dropdown-item>个人中心</el-dropdown-item>
+						<el-dropdown-item @click.native="handleLogout">退出博客</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
 			</div>
@@ -71,7 +70,7 @@
 		data() {
 			return {
 				brandImg: 'https://weapp-1253522117.image.myqcloud.com//image/20170816/6cff8d98453df6fd.png',
-        shortBrandImg:'https://weapp-1253522117.image.myqcloud.com//image/20180327/9b059f0353baffb2.png',
+        		shortBrandImg:'https://weapp-1253522117.image.myqcloud.com//image/20180327/9b059f0353baffb2.png',
 			}
 		},
 		computed: {
@@ -84,7 +83,7 @@
 			handleopen() {},
 			handleclose() {},
 			handleselect () {},
-			logout() {},
+			handleLogout() {},
 			//折叠导航栏
 			collapse(){
 				this.$store.dispatch('ToggleSideBar')

@@ -6,11 +6,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // 懒加载，组件多时优化性能
-const IM = file => () => import(`@/components/pages/${file}.vue`);
+const IM = file => () => import(`@/pages/${file}.vue`);
 
 // Layout
 import Main from '@/views/Main';
-
 import Login from '@/views/Login';
 import NotFound from '@/views/404';
 
@@ -36,39 +35,45 @@ export const routes = [
   {
     path: '/',
     name: 'Dashboard',
-    meta: { title: '小程序概览' },
-    icon: 'iconfont icon-newdocumentdashboard',
+    meta: { title: '博客概览' },
+    icon: 'iconfont icon-tubiaozhexiantu',
     component: Main,
     unique:true,
     children: [
-      { path: '/dashboard', name: 'dashboard', meta: {  title: '小程序概览'} , component: IM('dashboard/Dashboard') }]
+      { path: '/dashboard', name: 'dashboard', meta: {  title: '博客概览'} , component: IM('dashboard/Dashboard')},
+    ]
+  },
+  {
+    path: '/',
+    name: 'Blog',
+    meta: { title: '博客管理' },
+    icon: 'iconfont icon-bianji',
+    component: Main,
+    children: [
+      { path: '/blog', name: 'blogManage', meta: {  title: '博客列表'} , component: IM('blog/Manage')},
+      { path: '/blog/create', name: 'blogCreate', meta: {  title: '博客创建'} , component: IM('blog/Create')},
+    ]
+  },
+  {
+    path: '/',
+    name: 'Tags',
+    meta: { title: '标签管理' },
+    icon: 'iconfont icon-biaoqian2',
+    component: Main,
+    children: [
+      { path: '/tags', name: 'tags', meta: {  title: '标签列表'} , component: IM('tags/Tags')},
+    ]
   },
   {
     path: '/',
     name: 'Setting',
     meta: { title: '系统设置' },
-    icon: 'iconfont icon-tableprocessdeployment',
+    icon: 'iconfont icon-settingfull',
     component: Main,
     children: [
-      { path: '/setting/authorize', name: 'authorize', meta: {  title: '小程序授权'} , component: IM('setting/Authorize') },
-      { path: '/setting', name: 'setting', meta: {  title: '小程序设置'} , component: IM('setting/Setting') },
-      { path: '/setting/publish', name: 'publish', meta: {  title: '发布管理'} , component: IM('setting/Publish') },
-      { path: '/setting/rights', name: 'rights', meta: {  title: '权限管理'} , component: IM('setting/Rights') },
+      { path: '/setting', name: 'setting', meta: {  title: '博客设置'} , component: IM('setting/Setting') },
       ]
   },
-  {
-    path: '/',
-    name: 'Analysis',
-    meta: { title: '数据分析' },
-    icon: 'iconfont icon-tubiao',
-    component: Main,
-    children: [
-      { path: '/data/survey', name: 'survey', meta: {  title: '数据概况'} , component: IM('analysis/Analysis') },
-      { path: '/data/accessAnalysis', name: 'accessAnalysis', meta: {  title: '访问分析'} , component: IM('analysis/Analysis') },
-      { path: '/data/userPortrait', name: 'userPortrait', meta: {  title: '用户画像'} , component: IM('analysis/Analysis') },
-    ]
-  },
-
   { path: '*', hidden: true, redirect: '/404'}
   ];
 

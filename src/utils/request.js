@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { Message } from 'element-ui';
 //import Registry from './registry';
-// const initData = Registry.get('initData') || initData;
 
 // 创建axios实例
 const http = axios.create({
-    baseURL: initData.api, // api的baseURL
     timeout: 15000 // 请求超时时间
 });
 
@@ -14,7 +12,6 @@ http.interceptors.request.use(req => {
   return req.headers['Token'] = initData.token; // 让每个请求携带token
 }, error => {
     // Do something with request error
-    console.log(error); // for debug
     Promise.reject(error);
 });
 

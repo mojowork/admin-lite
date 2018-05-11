@@ -1,5 +1,5 @@
 <template>
   <div>
-      a
+      Tags
   </div>
 </template>

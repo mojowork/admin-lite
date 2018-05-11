@@ -1,13 +1,12 @@
 <template>
-
+  <div>
+    dashboard
+  </div>
 </template>
 
 <script>
     export default {
-        name: "authorize"
+        name: "dashboard"
     }
 </script>
 
-<style scoped>
-
-</style>
