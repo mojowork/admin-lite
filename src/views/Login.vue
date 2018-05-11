@@ -1,5 +1,15 @@
 <template>
     <div class="login">
+      <el-form ref="form" :model="loginForm">
+        <div class="login__acc">
+          <el-button class="login__btn" size="small"><i class="iconfont icon-zhanghao" style="font-size:22px;"></i></el-button>
+          <el-input class="login__input" v-model="loginForm.account"></el-input>
+        </div>
+        <div class="login__passwd">
+          <el-button class="login__btn" size="small"><i class="iconfont icon-zhanghaomima" style="font-size:22px;"></i></el-button>
+          <el-input class="login__input" type="password" v-model="loginForm.password" @keyup.native.enter="handleSubmit"></el-input>
+        </div>
+    </el-form>
     </div>
 </template>
 
@@ -8,41 +18,18 @@ import {setToken} from '@/utils/auth'
   export default {
     data() {
       return {
-        logining: false,
-        showForm: false,
-        ruleForm: {
-          account: 'chaoshuai',
-          checkPass: '123456'
-        },
-        rules: {
-          account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-          checkPass: [{ required: true, message: '请输入密码', trigger: 'blur' }]
-        },
-        checked: true
+        loginForm: {
+          account: '',
+          password: ''
+        }
       };
     },
     methods: {
-      showAdminInfo() {},
       handleSubmit() {
-        this.$refs.ruleForm.validate((valid) => {
-          if (valid) {
-            this.logining = true;
-            this.$http.post('/login/login',{
-              username: this.ruleForm.account,
-              password: this.ruleForm.checkPass
-            }).then(data => {
-              this.logining = false;
-              let {code, msg, token, user } = data;
-              if (code == 200) {
-                setToken(token)
-                localStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ path: '/' });
-              }
-            });
-          } else {
-            return false;
-          }
-        });
+          this.$http('/login/login',{
+            ...this.ruleForm
+          }).then(res => {
+          })
       }
     }
   }
@@ -60,5 +47,30 @@ import {setToken} from '@/utils/auth'
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+        .login__acc{
+          display: flex;
+          margin: 10px;
+          .login__btn{
+            background-color: rgba(255,255,255,0);
+            font-size: 22px;
+            color:#f3f2f3;
+            margin-right: 10px;
+          }
+          .login__input{
+             background-color: rgba(255,255,255,0);
+          }
+        }
+        .login__passwd{
+          @extend .login__acc;
+        }
 }
 </style>
+
+<style lang="scss">
+.login .el-input__inner{
+   background: rgba(255,255,255,0);
+   color: #fff;
+}
+</style>
+

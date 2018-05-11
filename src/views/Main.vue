@@ -2,13 +2,13 @@
 	<div class="container">
     <!-- 头部 -->
 		<header class="header">
-			<div class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
-        <transition name="title" mode="out-in">
-          <img v-if="!collapsed" :src="brandImg" alt="">
-        </transition>
-        <transition name="title" mode="out-in">
-          <img v-if="collapsed" :src="shortBrandImg">
-			  </transition>
+		<div class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
+			<transition name="title" mode="out-in">
+				<img v-if="!collapsed" :src="brandImg" alt="">
+			</transition>
+			<transition name="title" mode="out-in">
+				<img v-if="collapsed" :src="shortBrandImg">
+			</transition>
 			</div>
 			<div class="app-info">
 				<div class="tools" @click.prevent="collapse">
@@ -19,7 +19,7 @@
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner">我的工作台<i class="el-icon-caret-bottom"></i></span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>个人中心</el-dropdown-item>
+						<el-dropdown-item>切换用户</el-dropdown-item>
 						<el-dropdown-item @click.native="handleLogout">退出博客</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
@@ -83,10 +83,12 @@
 			handleopen() {},
 			handleclose() {},
 			handleselect () {},
-			handleLogout() {},
+			handleLogout() {
+				this.$router.push({path: '/login'});
+			},
 			//折叠导航栏
 			collapse(){
-				this.$store.dispatch('ToggleSideBar')
+				this.$store.dispatch('ToggleSideBar');
 			}
 		}
 	}
